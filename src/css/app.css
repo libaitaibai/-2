@@ -1,0 +1,15 @@
+.mytoast{
+    color: red !important;
+    background-color: aquamarine;
+}
+.iconClass{
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+}
+div mt-header{
+    height: 40px;
+}
+.view{
+    margin-top:40px;
+}
