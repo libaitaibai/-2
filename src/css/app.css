@@ -1,3 +1,6 @@
+.mint-header.is-fixed  {
+    z-index: 8;
+}
 .mytoast{
     color: red !important;
     background-color: aquamarine;
@@ -10,6 +13,23 @@
 div mt-header{
     height: 40px;
 }
+.app_zong{
+    padding-top:40px;
+    padding-bottom: 54px;
+}
 .view{
-    margin-top:40px;
+    overflow-x: hidden;
+}
+.v-enter-active ,
+.v-leave-active {
+    transition: all 0.5s ease;
+}
+.v-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+.v-leave-to {
+    opacity: 0;
+    transform: translateX(-100%);
+    position:absolute;
 }
