@@ -27,7 +27,7 @@
 </template>
 <script>
 import { Toast } from 'mint-ui'
-import swiper from'../swiper/swiper.vue'
+import swiper from '../swiper/swiper.vue'
 export default {
   data () {
     return {

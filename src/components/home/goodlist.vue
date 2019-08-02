@@ -18,8 +18,8 @@
     </div>
 </template>
 <script>
-
-export default{
+import { Toast } from 'mint-ui'
+export default {
   data () {
     return {
       // 挂载自己组件的私有数据
@@ -36,7 +36,7 @@ export default{
       // 因为没用pageindex却加载数据所以v-for的:key="item.id"是重复的,所以加载时会报错
       this.$http.get('http://localhost/goodslistnew.php').then(result => {
         if (result.status === 200) {
-          this.goodsGetArray=this.goodsGetArray.concat(result.body)
+          this.goodsGetArray = this.goodsGetArray.concat(result.body)
           console.log(this.goodsGetArray)
           console.log(this.$route)
           /* Toast('成功') */
@@ -47,23 +47,22 @@ export default{
     },
     // 加载数据调用goodsGetData
     goodsupload () {
-      this.pageindex++;
+      this.pageindex++
       // console.log(this.pageindex)
       this.goodsGetData()
     },
     getgoodinfo (id) {
       // 除了使用 <router-link> 创建 a 标签来定义导航链接，我们还可以借助 router 的实例方法，通过编写代码来实现。叫做编程式的导航
-        // 1.简单的(字符串)
-        // this.$router.push('/home/goodinfo')
-        // 2.简单的(对象)
-        // this.$router.push({ path: '/home/goodinfo'})
-        // 3.复杂点(命名的路由,要在router.js中命名)这里params不能和push一起用
-        // this.$router.push({name: 'goodinfo' , params: {id}})
-        // 4.带查询参数，变成 /register?plan=private
-          this.id=id
-          this.$router.push({ path: '/home/goodinfo/'+this.id})
-          
-        // console.log(this.$router.push())
+      // 1.简单的(字符串)
+      // this.$router.push('/home/goodinfo')
+      // 2.简单的(对象)
+      // this.$router.push({ path: '/home/goodinfo'})
+      // 3.复杂点(命名的路由,要在router.js中命名)这里params不能和push一起用
+      // this.$router.push({name: 'goodinfo' , params: {id}})
+      // 4.带查询参数，变成 /register?plan=private
+      this.id = id
+      this.$router.push({path: '/home/goodinfo/' + this.id})
+      // console.log(this.$router.push())
       // this.$router.
     }
   },

@@ -8,8 +8,8 @@
     </div>
 </template>
 <script>
-export default{
-    props: ['swipelist' ,'full']
+export default {
+  props: ['swipelist', 'full']
 }
 </script>
 <style lang="less" scoped>
@@ -29,4 +29,3 @@ div{
     width:100%;
 }
 </style>
-   

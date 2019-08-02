@@ -62,7 +62,7 @@
 import { Toast } from 'mint-ui'
 import swiper from '../swiper/swiper.vue'
 import numbox from './goodinfo_numbox.vue'
-// import mui from '../../lib/mui/js/mui.js'
+import mui from '../../lib/mui/js/mui.js'
 export default{
   data () {
     return {
@@ -72,9 +72,9 @@ export default{
       id: this.$route.params.id,
       isfull: false,
       show: false,
-      //小球初始和终点位移差
+      // 小球初始和终点位移差
       qiuchux: '',
-      qiuchux: '',
+      qiuchuy: '',
       qiuzongx: '',
       qiuzongy: '',
       // 数值组件的数值
@@ -87,8 +87,8 @@ export default{
       // this.$http.get('http://localhost/goodslistnew/'+this.id).then(result => {
       this.$http.get('http://localhost/goodslistnew.php').then(result => {
         if (result.status === 200) {
-          this.goodsinfoGetArray=result.body
-          this.goodsGetArray=this.goodsinfoGetArray[this.id]
+          this.goodsinfoGetArray = result.body
+          this.goodsGetArray = this.goodsinfoGetArray[this.id - 1]
           /* Toast('成功') */
         } else {
           Toast('失败')
@@ -96,50 +96,58 @@ export default{
       })
     },
     introduce (id) {
-        // 用编程式导航引入商品介绍组件
-        this.$router.push({ name: 'goodsintroduce', params: { id }})
+      // 用编程式导航引入商品介绍组件
+      this.$router.push({name: 'goodsintroduce', params: { id }})
     },
     comment (id) {
-        // 用编程式导航引入商品评论组件
-        this.$router.push({ name: 'goodscomment', params: { id }})
+      // 用编程式导航引入商品评论组件
+      this.$router.push({name: 'goodscomment', params: { id }})
     },
     showa () {
-        // 小球显示隐藏
-        this.show=!this.show;
+      // 小球显示隐藏
+      this.show = !this.show
+      // 把数据放到对象传递给store
+      var goodsinfo = {
+        id: this.id,
+        nums: this.selectedcount,
+        price: this.goodsGetArray.newprice,
+        selected: true
+      }
+      this.$store.commit('addCarValue', goodsinfo)
     },
     beforeEnter (el) {
-        // 小球进入前动画
-        el.style.transform="translate(154px , 536px)";
+      // 小球进入前动画
+      el.style.transform = 'translate(154px , 536px)'
     },
-    enter (el,done) {
-        el.offsetWidth;
-        // 获取小球初始位置x,y用vue的ref和getBoundingClientRect(),getBoundingClientRect()是获取矩形边框到小球位置的有left,right,top,bottom
-        this.qiuchux=this.$refs.qiuchu.getBoundingClientRect().left;
-        this.qiuchuy=this.$refs.qiuchu.getBoundingClientRect().top;
-        // 获取小球终点位置x,y无法用vue的ref,因为ref只获取当前页面的元素,但是因为没有计算也可以直接用dom元素
-        // 给购物车小球一个id(badgeid)
-        this.qiuzongx=document.getElementById('badgeid').getBoundingClientRect().left;
-        this.qiuzongy=document.getElementById('badgeid').getBoundingClientRect().top;
-        // var A=this.$refs.qiuchu.getBoundingClientRect();
-        // console.log(A)
-        var latex=parseInt(this.qiuzongx-this.qiuchux)+154;
-        var latey=parseInt(this.qiuzongy-this.qiuchuy)+536;
-        // console.log(latex,latey)
-         // 小球进入中,done表示立马调用下个函数,一定要有el.offsetWidth,transition过渡效果
-        //  这里的`是1左边的
-        el.style.transform=`translate(${latex}px , ${latey}px)`;
-        el.style.transition="all 0.5s cubic-bezier(.68,.2,.83,.65)";
-        // 立即调用小球消失
-        done()
+    enter (el, done) {
+      el.offsetWidth
+      // 获取小球初始位置x,y用vue的ref和getBoundingClientRect(),getBoundingClientRect()是获取矩形边框到小球位置的有left,right,top,bottom
+      this.qiuchux = this.$refs.qiuchu.getBoundingClientRect().left
+      this.qiuchuy = this.$refs.qiuchu.getBoundingClientRect().top
+      // 获取小球终点位置x,y无法用vue的ref,因为ref只获取当前页面的元素,但是因为没有计算也可以直接用dom元素
+      // 给购物车小球一个id(badgeid)
+      this.qiuzongx = document.getElementById('badgeid').getBoundingClientRect().left
+      this.qiuzongy = document.getElementById('badgeid').getBoundingClientRect().top
+      // var A=this.$refs.qiuchu.getBoundingClientRect();
+      // console.log(A)
+      var latex = parseInt(this.qiuzongx - this.qiuchux) + 154
+      var latey = parseInt(this.qiuzongy - this.qiuchuy) + 536
+      // console.log(latex,latey)
+      // 小球进入中,done表示立马调用下个函数,一定要有el.offsetWidth,transition过渡效果
+      //  这里的`是1左边的
+      el.style.transform = `translate(${latex}px , ${latey}px)`
+      el.style.transition = 'all 0.5s cubic-bezier(.68,.2,.83,.65)'
+      // 立即调用小球消失
+      done()
     },
     afterEnter (el) {
-        // 小球进入后动画,让小球结束动画后消失
-        this.show=!this.show;
+      // 小球进入后动画,让小球结束动画后消失
+      this.show = !this.show
     },
     countchanged (count) {
-        // 获取数字组件的值用方法传值
-        this.selectedcount = count;
-        // console.log(this.selectedcount)
+      // 获取数字组件的值用方法传值
+      this.selectedcount = count
+      // console.log(this.selectedcount)
     }
   },
   created () {
@@ -149,8 +157,8 @@ export default{
     swiper,
     numbox
   },
-  mounted(){
-    mui(".mui-numbox").numbox()
+  mounted () {
+    mui('.mui-numbox').numbox()
   }
 }
 </script>
@@ -188,7 +196,7 @@ export default{
                 span:nth-child(4){
                     color:red;
                     font-weight: bold;
-                } 
+                }
             }
             .shapping{
                 padding:10px 0px;

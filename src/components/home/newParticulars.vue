@@ -31,8 +31,8 @@ export default{
       this.$http.get('http://localhost/Particularsnew.php').then(result => {
         if (result.status === 200) {
           this.ParticularsGetArray = result.body
-          this.clicksa=this.ParticularsGetArray[(this.id-1)].clicks
-          this.title1=this.ParticularsGetArray[(this.id-1)].title
+          this.clicksa = this.ParticularsGetArray[(this.id - 1)].clicks
+          this.title1 = this.ParticularsGetArray[(this.id - 1)].title
           /* Toast('成功') */
         } else {
           Toast('失败')

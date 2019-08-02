@@ -10,31 +10,31 @@
 </template>
 <script>
 import { Toast } from 'mint-ui'
-export default{
-    data (){
-        return{
-            id: this.$route.params.id,
-            introduceGetArray: [],
-            introsunGetArray: {}
-        }
-    },
-    methods: {
-        introduceGetData () {
-            this.$http.get('http://localhost/test.php').then(result => {
-                if (result.status === 200) {
-                this.introduceGetArray = result.body
-                this.introsunGetArray= this.introduceGetArray[this.id]
-                console.log(this.introsunGetArray)
-                /* Toast('成功') */
-                } else {
-                Toast('失败')
-                }
-            })
-        }
-    },
-    created(){
-        this.introduceGetData()
+export default {
+  data () {
+    return {
+      id: this.$route.params.id,
+      introduceGetArray: [],
+      introsunGetArray: {}
     }
+  },
+  methods: {
+    introduceGetData () {
+      this.$http.get('http://localhost/test.php').then(result => {
+        if (result.status === 200) {
+          this.introduceGetArray = result.body
+          this.introsunGetArray = this.introduceGetArray[this.id]
+          console.log(this.introsunGetArray)
+          /* Toast('成功') */
+        } else {
+          Toast('失败')
+        }
+      })
+    }
+  },
+  created () {
+    this.introduceGetData()
+  }
 }
 </script>
 <style lang="less" scoped>
